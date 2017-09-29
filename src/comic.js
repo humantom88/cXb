@@ -12,6 +12,14 @@ class ComicBook {
             'wheel',
             (ev) => this.handleScroll(ev)
         );
+        screen.addEventListener(
+            'click',
+            (ev) => this.handleClick(ev)
+        )
+        screen.addEventListener(
+            'right-click',
+            (ev) => this.handleRightClick(ev)
+        )
     }
 
     setFiles (files) {
@@ -89,6 +97,14 @@ class ComicBook {
                 this.prevPage()
             }
         }
+    }
+
+    handleClick (ev) {
+        this.nextPage()
+    }
+    
+    handleRightClick (ev) {
+        this.prevPage()
     }
 
     close () {
