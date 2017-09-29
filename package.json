@@ -21,8 +21,6 @@
   },
   "dependencies": {
     "electron": "^1.6.14",
-    "node-unrar": "^0.1.5",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "electron-unrar-js": "^1.0.1"
   }
 }
