@@ -1,0 +1,82 @@
+body {
+    background-color: #333333;
+    display: flex;
+    margin: 0;
+}
+
+aside {
+    background-color: rgba(0, 0, 0, 0.15);
+    color: #eaeaea;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 100;
+    position: fixed;
+    height: 100vh;
+    width: 200px;
+    transform: translateX(-100%);
+    transition: 0.3s all ease-out;
+    z-index: 1;
+}
+
+aside .pages {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sideButton {
+    position: absolute;
+    top: 47%;
+    right: -31px;
+    font-size: 30px;
+    background-color: rgb(43, 43, 43);
+    padding: 14px 14px;
+    border-radius: 40px;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.2s all ease-out;
+}
+
+.sideButton:hover {
+    opacity: 1;
+}
+
+aside ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 12px;
+    margin: 0px;
+}
+
+aside ul li {
+    padding: 5px 0px;
+}
+
+#screen {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    padding: 10px 12px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    font-family: Arial;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #eaeaea;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.button:hover {
+    background-color: #eaeaea;
+    color: #333333;
+    box-shadow: 0 0px 5px 2px rgba(255, 255, 255, 0.2);
+}
