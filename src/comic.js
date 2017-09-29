@@ -7,7 +7,11 @@ const image  = document.getElementById('page');
 class ComicBook {
     constructor(files) {
         this.setFiles(files);
-        screen.addEventListener('wheel', (ev) => this.handleScroll(ev));
+        this.setCurrentZoom();
+        screen.addEventListener(
+            'wheel',
+            (ev) => this.handleScroll(ev)
+        );
     }
 
     setFiles (files) {
@@ -16,6 +20,14 @@ class ComicBook {
 
     setCurrentPage (id) {
         this.currentPageId = id;
+    }
+    
+    setCurrentZoom (zoom = 1) {
+        this.zoom = zoom;
+    }
+
+    toggleWideMode () {
+        this.isWideModeOn = !this.isWideModeOn;
     }
 
     hideOpenButton () {
@@ -50,12 +62,32 @@ class ComicBook {
         }
     }
 
+    zoomIn () {
+        this.setCurrentZoom(this.zoom + 0.2);
+        image.style.transform = `scale(${this.zoom})`;
+    }
+
+    zoomOut () {
+        if ((this.zoom - 0.2) >= 1) {
+            this.setCurrentZoom(this.zoom - 0.2);
+            image.style.transform = `scale(${this.zoom})`;
+        }
+    }
+
     handleScroll (ev) {
         const { deltaY } = ev;
         if (deltaY > 0) {
-            this.nextPage()
+            if (ev.ctrlKey) {
+                this.zoomIn()
+            } else if (!ev.shiftKey) {
+                this.nextPage()
+            }            
         } else {
-            this.prevPage()
+            if (ev.ctrlKey) {
+                this.zoomOut()
+            } else if (!ev.shiftKey) {
+                this.prevPage()
+            }
         }
     }
 

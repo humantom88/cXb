@@ -52,6 +52,13 @@ aside ul {
 
 aside ul li {
     padding: 5px 0px;
+    color: #dadada;
+    font-size: 12px;
+    padding: 5px 7px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
 }
 
 #screen {

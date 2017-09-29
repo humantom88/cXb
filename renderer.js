@@ -1,5 +1,6 @@
 // Imports
 const ComicBook = require('./src/comic.js');
+const Board = require('./src/board.js')
 const Dialog = require('./src/utils/dialog.js');
 const path = require('path');
 
