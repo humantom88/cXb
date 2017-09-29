@@ -1,5 +1,6 @@
+const path = require('path');
 // Encodes the user filepath for different platforms
-export function encode (oldPath) {
+function encode (oldPath) {
     let c, newPath = '';
     let tempPath = oldPath.split(path.sep);
     switch (process.platform) {
@@ -19,3 +20,5 @@ export function encode (oldPath) {
         return newPath;
     }
 };
+
+module.exports = encode;

@@ -15,7 +15,7 @@ aside {
     width: 200px;
     transform: translateX(-100%);
     transition: 0.3s all ease-out;
-    z-index: 1;
+    z-index: 2;
 }
 
 aside .pages {
@@ -79,4 +79,8 @@ aside ul li {
     background-color: #eaeaea;
     color: #333333;
     box-shadow: 0 0px 5px 2px rgba(255, 255, 255, 0.2);
+}
+
+.page {
+    z-index: 1;
 }

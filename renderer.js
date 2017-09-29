@@ -1,9 +1,9 @@
 // Imports
-const comicBook = require('./src/comic.js');
+const ComicBook = require('./src/comic.js');
 const Dialog = require('./src/utils/dialog.js');
 const path = require('path');
-const encode = require('encode');
 
+let comicBook = null;
 
 function renderPanel (files) {
     if (files) {
@@ -22,18 +22,11 @@ function renderPanel (files) {
     }
 }
 
-function openPage(file) {
-    const screen = document.getElementById('screen');
-    const image = document.createElement('IMG');
-    image.src = encode(`.${path.sep}temp${path.sep}${file.fileHeader.name}`);
-    image.style.height = '100vh';
-    screen.appendChild(image);
-}
-
 //Functions
 function renderScreen (files, id = 0) {
     renderPanel(files)
-    openPage(files[id])
+    comicBook = new ComicBook(files)
+    comicBook.openPage(id)
 }
 
 //Init
