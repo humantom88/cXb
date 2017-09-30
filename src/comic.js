@@ -1,25 +1,22 @@
 const encode = require('./utils/encode');
 const path = require('path');
+const tempPath = require('./utils/getTempPath');
 
 const screen = document.getElementById('screen');
 const image  = document.getElementById('page');
 
 class ComicBook {
-    constructor(files) {
+    constructor(files, path) {
         this.setFiles(files);
+        this.setPath(path);
         this.setCurrentZoom();
-        screen.addEventListener(
-            'wheel',
-            (ev) => this.handleScroll(ev)
-        );
-        screen.addEventListener(
-            'click',
-            (ev) => this.handleClick(ev)
-        )
-        screen.addEventListener(
-            'right-click',
-            (ev) => this.handleRightClick(ev)
-        )
+        screen.addEventListener('wheel', (ev) => this.handleScroll(ev));
+        screen.addEventListener('click', (ev) => this.handleClick(ev));
+        screen.addEventListener('contextmenu', (ev) => this.handleRightClick(ev));
+    }
+
+    setPath (path) {
+        this.path = path;
     }
 
     setFiles (files) {
@@ -50,7 +47,7 @@ class ComicBook {
     openPage(id) {
         this.setCurrentPage(id);
         const file = this.files[this.currentPageId];
-        image.src = encode(`.${path.sep}temp${path.sep}${file.fileHeader.name}`);
+        image.src = encode(`${tempPath}${path.sep}${file.fileHeader.name}`);
         image.style.height = '100vh';
         screen.appendChild(image);
         this.hideOpenButton();
