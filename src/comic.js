@@ -105,7 +105,7 @@ class ComicBook {
     }
     
     setWideView () {
-        image.style.width = '100vw';
+        image.style.width = '99vw';
         image.style.height = 'auto';
         wideView = true;
     }

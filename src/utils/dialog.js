@@ -23,7 +23,16 @@ class FileDialog {
                     const rarExtractor = electronUnrarJs.createExtractorFromFile(file, tempPath);
                     const [state, result] = rarExtractor.extractAll();
                     if (state.state === 'SUCCESS') {
-                        this.handler(result.files)
+                        this.handler(result.files.sort((a, b) =>{
+                            const str1 = a.fileHeader.name.split('.')[0]
+                            const str2 = b.fileHeader.name.split('.')[0]
+                            for (let i = 0; i < str1.length; i++) {
+                                const _a = str1.charAt(i), 
+                                    _b = str2.charAt(i),
+                                    _c = _a.localeCompare(_b);
+                                if ( _c != 0 ) return isNaN(_a) || isNaN(_b) ? str1.localeCompare(str2) : _a - _b;
+                            }
+                        }))
                     }
                 }
             });
