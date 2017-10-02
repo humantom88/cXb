@@ -48,8 +48,11 @@ class ComicBook {
         this.setCurrentPage(id);
         const file = this.files[this.currentPageId];
         image.src = encode(`${tempPath}${path.sep}${file.fileHeader.name}`);
-        image.style.height = '100vh';
-        image.style.width = 'auto';
+        if (wideView) {
+            this.setWideView()
+        } else {
+            this.unsetWideView()
+        }
     }
 
     nextPage () {
@@ -101,17 +104,25 @@ class ComicBook {
         this.nextPage()
     }
     
+    setWideView () {
+        image.style.width = '100vw';
+        image.style.height = 'auto';
+        wideView = true;
+    }
+
+    unsetWideView () {
+        image.style.height = '99vh';
+        image.style.width = 'auto';
+        wideView = false;
+    }
+
     handleRightClick (ev) {
         if (this.detectLeftButton(ev)) {
             if (image) {
-                if (!wideView) {
-                    image.style.width = '100vw';
-                    image.style.height = 'auto';
-                    wideView = true;
+                if (wideView) {
+                    this.unsetWideView()
                 } else {
-                    image.style.height = '100vh';
-                    image.style.width = 'auto';
-                    wideView = false;
+                    this.setWideView()
                 }
             }
             ev.stopPropagation();
