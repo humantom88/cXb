@@ -3,6 +3,7 @@ const { dialog } = require('electron').remote;
 const path = require('path');
 const rimraf = require('rimraf');
 const tempPath = require('./getTempPath');
+const clearFolder = require('./clearFolder');
 
 class FileDialog {
     constructor (handler = () => {}) {
@@ -16,7 +17,7 @@ class FileDialog {
     }
 
     unrar (files) {
-        rimraf(tempPath, () => {
+        clearFolder(() => {
             files.forEach((file) => {
                 if (file.search('.cbr')) {
                     const rarExtractor = electronUnrarJs.createExtractorFromFile(file, tempPath);
@@ -26,7 +27,7 @@ class FileDialog {
                     }
                 }
             });
-        });
+        })
     }
 
     processFiles (files) {

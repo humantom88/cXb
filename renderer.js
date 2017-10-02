@@ -1,20 +1,21 @@
-// Imports
+const remote = require('electron').remote;
 const ComicBook = require('./src/comic.js');
 const Board = require('./src/board.js')
 const Dialog = require('./src/utils/dialog.js');
 const path = require('path');
 
 let comicBook = null;
+let maximized = false;
 
+//Functions
 function renderPanel (files) {
     if (files) {
         const pages = document.getElementById('pages');
-        // Remove all children from node
+
         while (pages.firstChild) {
             pages.removeChild(pages.firstChild)
         }
 
-        // Create an array of li nodes
         files.forEach((file) => {
             const item = document.createElement('LI')
             item.innerHTML = file.fileHeader.name
@@ -23,7 +24,6 @@ function renderPanel (files) {
     }
 }
 
-//Functions
 function renderScreen (files, id = 0) {
     renderPanel(files)
     comicBook = new ComicBook(files)
@@ -38,6 +38,9 @@ const render = () => {
     const side = document.getElementById('side');
     const left = document.getElementById('left');
     const open = document.getElementById('open');
+    const minimize = document.getElementById('minimize');
+    const fullscreen = document.getElementById('fullscreen');
+    const quit = document.getElementById('quit');
 
     left.addEventListener('click', function(ev) {
         if (ev) { ev.preventDefault(); }
@@ -53,6 +56,17 @@ const render = () => {
     })
 
     open.addEventListener('click', () => dialog.openFileDialog());
+    minimize.addEventListener('click', () => remote.getCurrentWindow().minimize());
+    fullscreen.addEventListener('click', () => {
+        if (!maximized) {
+            remote.getCurrentWindow().maximize();
+            maximized = true;
+        } else {
+            remote.getCurrentWindow().unmaximize();
+            maximized = false;
+        }
+    });
+    quit.addEventListener('click', () => remote.getCurrentWindow().close());
 }
 
 // Run

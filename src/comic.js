@@ -1,9 +1,13 @@
+const remote = require('electron').remote;
 const encode = require('./utils/encode');
 const path = require('path');
 const tempPath = require('./utils/getTempPath');
 
 const screen = document.getElementById('screen');
+const pageContainer = document.getElementById('pageContainer');
 const image  = document.getElementById('page');
+
+let wideView = false;
 
 class ComicBook {
     constructor(files, path) {
@@ -13,6 +17,7 @@ class ComicBook {
         screen.addEventListener('wheel', (ev) => this.handleScroll(ev));
         screen.addEventListener('click', (ev) => this.handleClick(ev));
         screen.addEventListener('contextmenu', (ev) => this.handleRightClick(ev));
+        window.addEventListener('keydown', (ev) => this.handleKeyDown(ev));
     }
 
     setPath (path) {
@@ -35,11 +40,6 @@ class ComicBook {
         this.isWideModeOn = !this.isWideModeOn;
     }
 
-    hideOpenButton () {
-        const open = document.getElementById('open');
-        open.style.display = 'none';
-    }
-
     open () {
         
     }
@@ -49,8 +49,7 @@ class ComicBook {
         const file = this.files[this.currentPageId];
         image.src = encode(`${tempPath}${path.sep}${file.fileHeader.name}`);
         image.style.height = '100vh';
-        screen.appendChild(image);
-        this.hideOpenButton();
+        image.style.width = 'auto';
     }
 
     nextPage () {
@@ -84,15 +83,17 @@ class ComicBook {
         if (deltaY > 0) {
             if (ev.ctrlKey) {
                 this.zoomIn()
-            } else if (!ev.shiftKey) {
-                this.nextPage()
-            }            
+            }           
         } else {
             if (ev.ctrlKey) {
                 this.zoomOut()
-            } else if (!ev.shiftKey) {
-                this.prevPage()
             }
+        }
+    }
+
+    handleKeyDown (ev) {
+        if (ev.keyCode == 27) {
+            this.close()
         }
     }
 
@@ -101,11 +102,30 @@ class ComicBook {
     }
     
     handleRightClick (ev) {
-        this.prevPage()
+        if (this.detectLeftButton(ev)) {
+            if (image) {
+                if (!wideView) {
+                    image.style.width = '100vw';
+                    image.style.height = 'auto';
+                    wideView = true;
+                } else {
+                    image.style.height = '100vh';
+                    image.style.width = 'auto';
+                    wideView = false;
+                }
+            }
+            ev.stopPropagation();
+        } else {
+            this.prevPage()
+        }
     }
 
     close () {
+        remote.getCurrentWindow().close()
+    }
 
+    detectLeftButton(ev) {
+        return ev.buttons === 1;
     }
 
     exit () {

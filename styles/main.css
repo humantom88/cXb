@@ -67,7 +67,6 @@ aside ul li {
     position: absolute;
     height: 100%;
     justify-content: center;
-    align-items: center;
 }
 
 .button {
@@ -90,4 +89,42 @@ aside ul li {
 
 .page {
     z-index: 1;
+}
+
+.controls {
+    display: flex;
+    position: absolute;
+    opacity: 0.2;
+    top: 5px;
+    right: 5px;
+    width: 100px;
+    padding: 10px;
+    justify-content: space-between;
+    transition: 0.2s all ease-in-out;
+    z-index: 2;
+}
+
+.controls:hover {
+    opacity: 1;
+}
+
+.control {
+    list-style: none;
+}
+
+.icon {
+    width: 20px;
+    filter: invert(60%);
+    transition: 0.2s all ease-in-out;
+}
+
+.folder {
+    width: 28px;
+    position: relative;
+    top: -12%;
+}
+
+.icon:hover {
+    filter: invert();
+    cursor: pointer;
 }
