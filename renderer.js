@@ -55,9 +55,16 @@ const render = () => {
         }
     })
 
-    open.addEventListener('click', () => dialog.openFileDialog());
-    minimize.addEventListener('click', () => remote.getCurrentWindow().minimize());
-    fullscreen.addEventListener('click', () => {
+    open.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        dialog.openFileDialog();
+    });
+    minimize.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        remote.getCurrentWindow().minimize();
+    });
+    fullscreen.addEventListener('click', (ev) => {
+        ev.stopPropagation();
         if (!maximized) {
             remote.getCurrentWindow().maximize();
             maximized = true;
@@ -66,7 +73,10 @@ const render = () => {
             maximized = false;
         }
     });
-    quit.addEventListener('click', () => remote.getCurrentWindow().close());
+    quit.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        remote.getCurrentWindow().close()
+    });
 }
 
 // Run
