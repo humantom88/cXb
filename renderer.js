@@ -1,7 +1,7 @@
-const remote = require('electron').remote;
-const ComicBook = require('./src/comic.js');
-const Board = require('./src/board.js')
-const Dialog = require('./src/utils/dialog.js');
+window.remote = require('electron').remote;
+const ComicBook = require('./src/comic');
+const Board = require('./src/board')
+const Dialog = require('./src/utils/dialog');
 const path = require('path');
 
 let comicBook = null;
@@ -45,7 +45,6 @@ const render = () => {
     left.addEventListener('click', function(ev) {
         if (ev) { ev.preventDefault(); }
         this.pressed = !this.pressed;
-    
         if (this.pressed) {
             side.style.transform = 'translateX(0%)';
             this.innerHTML = "<";
@@ -56,26 +55,28 @@ const render = () => {
     })
 
     open.addEventListener('click', (ev) => {
-        ev.stopPropagation();
         dialog.openFileDialog();
+        ev.stopPropagation();
     });
+
     minimize.addEventListener('click', (ev) => {
+        window.remote.getCurrentWindow().minimize();
         ev.stopPropagation();
-        remote.getCurrentWindow().minimize();
     });
+
     fullscreen.addEventListener('click', (ev) => {
-        ev.stopPropagation();
         if (!maximized) {
-            remote.getCurrentWindow().maximize();
+            window.remote.getCurrentWindow().maximize();
             maximized = true;
         } else {
-            remote.getCurrentWindow().unmaximize();
+            window.remote.getCurrentWindow().unmaximize();
             maximized = false;
         }
+        ev.stopPropagation();
     });
     quit.addEventListener('click', (ev) => {
+        window.remote.getCurrentWindow().close()
         ev.stopPropagation();
-        remote.getCurrentWindow().close()
     });
 }
 

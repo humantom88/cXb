@@ -123,6 +123,7 @@ aside ul li {
     width: 28px;
     position: relative;
     top: -12%;
+    z-index: 20;
 }
 
 .icon:hover {

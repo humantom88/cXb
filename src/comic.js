@@ -1,4 +1,3 @@
-const remote = require('electron').remote;
 const encode = require('./utils/encode');
 const path = require('path');
 const tempPath = require('./utils/getTempPath');
@@ -132,15 +131,11 @@ class ComicBook {
     }
 
     close () {
-        remote.getCurrentWindow().close()
+        window.remote.getCurrentWindow().close()
     }
 
     detectLeftButton(ev) {
         return ev.buttons === 1;
-    }
-
-    exit () {
-
     }
 }
 

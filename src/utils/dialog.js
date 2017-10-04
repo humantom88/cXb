@@ -1,5 +1,5 @@
 const electronUnrarJs = require('electron-unrar-js');
-const { dialog } = require('electron').remote;
+const { dialog } = window.remote;
 const path = require('path');
 const rimraf = require('rimraf');
 const tempPath = require('./getTempPath');

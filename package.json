@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "packager": "node scripts/packager.js"
+    "packager": "node scripts/packager.js",
+    "build": "npm run packager"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -17,13 +18,12 @@
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "~1.6.2",
-    "electron-packager": "^9.1.0"
-  },
   "dependencies": {
-    "electron": "^1.6.14",
+    "electron": "~1.6.2",
     "electron-unrar-js": "^1.0.1",
+    "electron-packager": "^9.1.0",
+    "jsonfile": "^4.0.0",
+    "mkdirp": "^0.5.1",
     "rimraf": "^2.6.2"
   }
 }
