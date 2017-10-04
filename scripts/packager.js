@@ -37,6 +37,7 @@ packager(
     prune: true,
     ignore: ignoredPaths,
     overwrite: true,
+    asar: true
   },
   function cb(err, appPaths) {
     postPackage(err, appPaths);
