@@ -36,7 +36,13 @@ class ComicBook {
     }
 
     toggleWideMode () {
-        this.isWideModeOn = !this.isWideModeOn;
+        if (image) {
+            if (wideView) {
+                this.unsetWideView()
+            } else {
+                this.setWideView()
+            }
+        }
     }
 
     open () {
@@ -97,6 +103,22 @@ class ComicBook {
         if (ev.keyCode == 27) {
             this.close()
         }
+
+        if (ev.keyCode == 13) {
+            if (ev.altKey || ev.metaKey) {
+                this.toggleWideMode()
+                return null;
+            }
+            this.nextPage();
+        }
+
+        if (ev.keyCode == 39 || ev.keyCode == 32 || ev.keyCode == 40) {
+            this.nextPage();
+        }
+
+        if (ev.keyCode == 37 || ev.keyCode == 38) {
+            this.prevPage();
+        }
     }
 
     handleClick (ev) {
@@ -117,13 +139,7 @@ class ComicBook {
 
     handleRightClick (ev) {
         if (this.detectLeftButton(ev)) {
-            if (image) {
-                if (wideView) {
-                    this.unsetWideView()
-                } else {
-                    this.setWideView()
-                }
-            }
+            this.toggleWideMode();
             ev.stopPropagation();
         } else {
             this.prevPage()
