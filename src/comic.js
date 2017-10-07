@@ -112,11 +112,11 @@ class ComicBook {
             this.nextPage();
         }
 
-        if (ev.keyCode == 39 || ev.keyCode == 32 || ev.keyCode == 40) {
+        if (ev.keyCode == 39 || ev.keyCode == 32) {
             this.nextPage();
         }
 
-        if (ev.keyCode == 37 || ev.keyCode == 38) {
+        if (ev.keyCode == 37) {
             this.prevPage();
         }
     }
