@@ -11,8 +11,6 @@ class Board {
         this.dialog = new Dialog(this.renderScreen);
         this.positionX = 0;
         this.positionY = 0;
-
-        
     }
 
     initTop () {
@@ -65,7 +63,7 @@ class Board {
         });
     
         fullscreen.addEventListener('click', (ev) => {
-            if (!maximized) {
+            if (!this.maximized) {
                 window.remote.getCurrentWindow().maximize();
                 this.maximized = true;
             } else {
