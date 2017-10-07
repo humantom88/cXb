@@ -1,6 +1,7 @@
 const encode = require('./utils/encode');
 const path = require('path');
 const tempPath = require('./utils/getTempPath');
+const remote = require('electron').remote;
 
 const screen = document.getElementById('screen');
 const pageContainer = document.getElementById('pageContainer');
@@ -106,10 +107,10 @@ class ComicBook {
 
         if (ev.keyCode == 13) {
             if (ev.altKey || ev.metaKey) {
-                this.toggleWideMode()
+                window.toggleFullScreen();
                 return null;
             }
-            this.nextPage();
+            this.toggleWideMode();
         }
 
         if (ev.keyCode == 39 || ev.keyCode == 32) {
