@@ -1,5 +1,5 @@
 const Dialog = require('./utils/dialog');
-const ComicBook = require('./comic');
+const ComicBook = require('./comic.js');
 
 class Board {
     constructor () {

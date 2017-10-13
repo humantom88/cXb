@@ -6,10 +6,9 @@ const screen = document.getElementById('screen');
 const pageContainer = document.getElementById('pageContainer');
 const image  = document.getElementById('page');
 
-let wideView = false;
-
 class ComicBook {
     constructor(files, path) {
+        this.wideView = false;
         this.setFiles(files);
         this.setPath(path);
         this.setCurrentZoom();
@@ -39,15 +38,11 @@ class ComicBook {
         this.isWideModeOn = !this.isWideModeOn;
     }
 
-    open () {
-        
-    }
-
     openPage(id) {
         this.setCurrentPage(id);
         const file = this.files[this.currentPageId];
         image.src = encode(`${tempPath}${path.sep}${file.fileHeader.name}`);
-        if (wideView) {
+        if (this.wideView) {
             this.setWideView()
         } else {
             this.unsetWideView()
@@ -106,19 +101,19 @@ class ComicBook {
     setWideView () {
         image.style.width = '99vw';
         image.style.height = 'auto';
-        wideView = true;
+        this.wideView = true;
     }
 
     unsetWideView () {
         image.style.height = '99vh';
         image.style.width = 'auto';
-        wideView = false;
+        this.wideView = false;
     }
 
     handleRightClick (ev) {
         if (this.detectLeftButton(ev)) {
             if (image) {
-                if (wideView) {
+                if (this.wideView) {
                     this.unsetWideView()
                 } else {
                     this.setWideView()

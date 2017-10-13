@@ -37,7 +37,8 @@ packager(
     prune: true,
     ignore: ignoredPaths,
     overwrite: true,
-    asar: true
+    asar: true,
+    icon: './logo'
   },
   function cb(err, appPaths) {
     postPackage(err, appPaths);
