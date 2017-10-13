@@ -1,18 +1,26 @@
 const Dialog = require('./utils/dialog');
 const ComicBook = require('./comic.js');
 
+window.maximized = false;
+window.toggleFullScreen = function () {
+    if (!window.maximized) {
+        window.remote.getCurrentWindow().maximize();
+        window.maximized = true;
+    } else {
+        window.remote.getCurrentWindow().unmaximize();
+        window.maximized = false;
+    }
+}
+
 class Board {
     constructor () {
         this.comicBook = null;
-        this.maximized = false;
 
         this.renderPanel = this.renderPanel.bind(this);
         this.renderScreen = this.renderScreen.bind(this);
         this.dialog = new Dialog(this.renderScreen);
         this.positionX = 0;
         this.positionY = 0;
-
-        
     }
 
     initTop () {
@@ -65,13 +73,7 @@ class Board {
         });
     
         fullscreen.addEventListener('click', (ev) => {
-            if (!maximized) {
-                window.remote.getCurrentWindow().maximize();
-                this.maximized = true;
-            } else {
-                window.remote.getCurrentWindow().unmaximize();
-                this.maximized = false;
-            }
+            window.toggleFullScreen()
             ev.stopPropagation();
         });
         quit.addEventListener('click', (ev) => {

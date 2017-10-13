@@ -1,6 +1,7 @@
 const encode = require('./utils/encode');
 const path = require('path');
 const tempPath = require('./utils/getTempPath');
+const remote = require('electron').remote;
 
 const screen = document.getElementById('screen');
 const pageContainer = document.getElementById('pageContainer');
@@ -35,7 +36,13 @@ class ComicBook {
     }
 
     toggleWideMode () {
-        this.isWideModeOn = !this.isWideModeOn;
+        if (image) {
+            if (this.wideView) {
+                this.unsetWideView()
+            } else {
+                this.setWideView()
+            }
+        }
     }
 
     openPage(id) {
@@ -92,6 +99,22 @@ class ComicBook {
         if (ev.keyCode == 27) {
             this.close()
         }
+
+        if (ev.keyCode == 13) {
+            if (ev.altKey || ev.metaKey) {
+                window.toggleFullScreen();
+                return null;
+            }
+            this.toggleWideMode();
+        }
+
+        if (ev.keyCode == 39 || ev.keyCode == 32) {
+            this.nextPage();
+        }
+
+        if (ev.keyCode == 37) {
+            this.prevPage();
+        }
     }
 
     handleClick (ev) {
@@ -112,13 +135,7 @@ class ComicBook {
 
     handleRightClick (ev) {
         if (this.detectLeftButton(ev)) {
-            if (image) {
-                if (this.wideView) {
-                    this.unsetWideView()
-                } else {
-                    this.setWideView()
-                }
-            }
+            this.toggleWideMode();
             ev.stopPropagation();
         } else {
             this.prevPage()
