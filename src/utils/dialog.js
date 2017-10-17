@@ -1,8 +1,7 @@
 const electronUnrarJs = require('electron-unrar-js');
-const { dialog } = window.remote;
+const { dialog } = require('electron').remote;
 const path = require('path');
 const rimraf = require('rimraf');
-const tempPath = require('./getTempPath');
 const clearFolder = require('./clearFolder');
 
 class FileDialog {
@@ -20,8 +19,10 @@ class FileDialog {
         clearFolder(() => {
             files.forEach((file) => {
                 if (file.search('.cbr')) {
-                    const rarExtractor = electronUnrarJs.createExtractorFromFile(file, tempPath);
-                    const [state, result] = rarExtractor.extractAll();
+                    const rarExtractor = electronUnrarJs.createExtractorFromFile(file, window.tempPath);
+                    const resultObject = rarExtractor.extractAll();
+                    const [state, result] = resultObject
+
                     if (state.state === 'SUCCESS') {
                         this.handler(result.files.sort((a, b) =>{
                             const str1 = a.fileHeader.name.split('.')[0]
@@ -53,7 +54,6 @@ class FileDialog {
                 extensions: this.extensions
             }]
         })
-
         this.processFiles(files)
     }
 }

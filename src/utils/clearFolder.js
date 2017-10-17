@@ -1,6 +1,5 @@
 const rimraf = require('rimraf');
-const tempPath = require('./getTempPath');
-
-const clearFolder = (handler) => rimraf(tempPath, handler);
+const path = require('path');
+const clearFolder = (handler) => rimraf(path.join(window.tempPath, '.*'), handler);
 
 module.exports = clearFolder;

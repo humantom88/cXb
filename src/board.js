@@ -1,4 +1,4 @@
-const Dialog = require('./utils/dialog');
+const Dialog = require('./utils/dialog.js');
 const ComicBook = require('./comic.js');
 
 window.maximized = false;

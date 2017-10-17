@@ -1,8 +1,6 @@
 const encode = require('./utils/encode');
 const path = require('path');
-const tempPath = require('./utils/getTempPath');
 const remote = require('electron').remote;
-
 const screen = document.getElementById('screen');
 const pageContainer = document.getElementById('pageContainer');
 const image  = document.getElementById('page');
@@ -48,7 +46,7 @@ class ComicBook {
     openPage(id) {
         this.setCurrentPage(id);
         const file = this.files[this.currentPageId];
-        image.src = encode(`${tempPath}${path.sep}${file.fileHeader.name}`);
+        image.src = encode(path.join(window.tempPath, file.fileHeader.name));
         if (this.wideView) {
             this.setWideView()
         } else {
