@@ -11,6 +11,7 @@ class ComicBook {
         this.setFiles(files);
         this.setPath(path);
         this.setCurrentZoom();
+        this.scrollStep = 50;
         screen.addEventListener('wheel', (ev) => this.handleScroll(ev));
         screen.addEventListener('click', (ev) => this.handleClick(ev));
         screen.addEventListener('contextmenu', (ev) => this.handleRightClick(ev));
@@ -80,6 +81,22 @@ class ComicBook {
         }
     }
 
+    scrollDown () {
+        if (window.scrollY >= image.height) {
+            window.scrollY = image.height;
+        } else {
+            window.scrollY += this.scrollStep;
+        }
+    }
+
+    scrollUp () {
+        if (window.scrollY - this.scrollStep > 0) {
+            window.scrollY -= this.scrollStep;
+        } else {
+            window.scrollY = 0;
+        }
+    }
+
     handleScroll (ev) {
         const { deltaY } = ev;
         if (deltaY > 0) {
@@ -94,24 +111,37 @@ class ComicBook {
     }
 
     handleKeyDown (ev) {
-        if (ev.keyCode == 27) {
-            this.close()
-        }
-
-        if (ev.keyCode == 13) {
-            if (ev.altKey || ev.metaKey) {
-                window.toggleFullScreen();
-                return null;
-            }
-            this.toggleWideMode();
-        }
-
-        if (ev.keyCode == 39 || ev.keyCode == 32) {
-            this.nextPage();
-        }
-
-        if (ev.keyCode == 37) {
-            this.prevPage();
+        switch (ev.keyCode) {
+            case 27:
+                this.close()
+                break;
+    
+            case 13:
+                if (ev.altKey || ev.metaKey) {
+                    window.toggleFullScreen();
+                    return null;
+                }
+                this.toggleWideMode();
+                break;
+    
+            case 38:
+                this.scrollUp();
+                break;
+    
+            case 40:
+                this.scrollDown();
+                break;
+    
+            case 39:
+            case 32:
+                this.nextPage();
+                break;
+    
+            case 37:
+                this.prevPage();
+                break;
+            default:
+                break;
         }
     }
 
