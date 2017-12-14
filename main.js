@@ -60,3 +60,7 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+app.on('window-all-closed', function () {
+  app.quit()
+})
