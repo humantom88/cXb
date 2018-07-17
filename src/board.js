@@ -23,40 +23,6 @@ class Board {
         this.positionY = 0;
     }
 
-    initTop () {
-        const top = document.getElementById('top');
-        top.addEventListener('mousedown', (ev) => {
-            this.positionX = ev.clientX;
-            this.positionY = ev.clientY;
-            window.pressed = true;
-        });
-
-        top.addEventListener('mouseup', (ev) => {
-            window.pressed = false;
-        });
-
-        top.addEventListener('mouseup', (ev) => {
-            window.pressed = false;
-        });
-
-        top.addEventListener('mouseleave', (ev) => {
-            window.pressed = false;
-        })
-
-        top.addEventListener('mousemove', (ev) => {
-            const { x, y } = window.remote.getCurrentWindow().getBounds();
-            const deltaX = ev.screenX - ev.clientX;
-            const deltaY = ev.screenY - ev.clientY;
-
-            if (window.pressed) {
-                window.remote.getCurrentWindow().setPosition(
-                    x + ev.clientX - this.positionX,
-                    y + ev.clientY - this.positionY
-                )
-            }
-        })
-    }
-
     initControls () {
         const open = document.getElementById('open');
         const minimize = document.getElementById('minimize');
@@ -83,7 +49,6 @@ class Board {
     }
 
     init () {
-        this.initTop();
         this.initControls();
         const side = document.getElementById('side');
         const left = document.getElementById('left');
