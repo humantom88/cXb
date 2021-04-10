@@ -19,7 +19,7 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "dependencies": {
-    "electron": "^3.0.6",
+    "electron": "^9.1.0",
     "electron-packager": "^9.1.0",
     "electron-unrar-js": "^1.0.1",
     "jsonfile": "^4.0.0",
